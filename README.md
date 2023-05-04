@@ -15,7 +15,7 @@ Milky Warp is an open-source tool that displays a magnifier when pressing a shor
 ## Installation
 
 ### Windows
-Download the latest release from the [releases page](...)
+Download the latest release from the [releases page](https://github.com/hugoattal/milky-warp/releases)
 
 ### macOS
 There is no release for macOS yet. You can build the application from source.
