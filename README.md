@@ -1,16 +1,51 @@
-# Tauri + Vue 3 + TypeScript
+# 🌌 Milky Warp
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Milky Warp is an open-source tool that displays a magnifier when pressing a shortcut. It's built with Tauri, Vite, Vue, and Typescript.
 
-## Recommended IDE Setup
+## Features
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+- Displays a magnifier when pressing a configurable shortcut
+- Supports zoom in and zoom out using the mouse scroll wheel
+- Cross-platform: runs on Windows, macOS, and Linux
 
-## Type Support For `.vue` Imports in TS
+## Preview
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+<p style="text-align:center"><img src="https://user-images.githubusercontent.com/4563971/236351314-0082007d-e740-47b3-8505-7e79fec0b653.gif" alt="preview"></p>
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+## Installation
+
+### Windows
+Download the latest release from the [releases page](...)
+
+### macOS
+There is no release for macOS yet. You can build the application from source.
+
+### Linux
+There is no release for Linux yet. You can build the application from source.
+
+## Build
+
+1. Clone the repository: `git clone https://github.com/hugoattal/milky-warp.git`
+2. Install the dependencies: `pnpm install`
+3. Build the application: `pnpm run tauri build`
+4. Get the executable from the `src-tauri/target` folder
+
+## Usage
+
+1. Press the shortcut key (default: `Ctrl+Alt+A`) to activate the magnifier
+2. Use the mouse to move the magnifier around the screen
+3. Use the mouse scroll wheel to zoom in and out
+4. Press the shortcut key again to deactivate the magnifier
+
+## Configuration
+
+You can customize the shortcut key by editing the `src/config.ts` file.
+
+## Contributing
+
+Contributions are welcome!
+
+## License
+
+Milky Warp is released under the [MIT License](LICENSE).

@@ -1,5 +1,5 @@
 <template>
-    <MZoom :screenshot-path="screenshotPath" v-if="isWindowDisplayed"/>
+    <MZoom :screenshot-path="screenshotPath" :is-active="isWindowDisplayed"/>
 </template>
 
 <script setup lang="ts">
@@ -7,7 +7,8 @@ import MZoom from "./components/Zoom.vue";
 import { register } from "@tauri-apps/api/globalShortcut";
 import { window } from "@tauri-apps/api";
 import { convertFileSrc, invoke } from "@tauri-apps/api/tauri";
-import { onMounted, ref } from "vue";
+import { nextTick, onMounted, ref } from "vue";
+import { config } from "./config";
 
 const isWindowDisplayed = ref(false);
 const screenshotPath = ref("");
@@ -18,8 +19,12 @@ onMounted(async () => {
     //await window.getCurrent().setIgnoreCursorEvents(true);
 });
 
-register("Alt+Z", async () => {
-    if (isWindowDisplayed.value) {
+register(config.shortcut, async () => {
+    isWindowDisplayed.value = !isWindowDisplayed.value;
+
+    await nextTick();
+
+    if (!isWindowDisplayed.value) {
         await window.getCurrent().hide();
     }
     else {
@@ -27,7 +32,6 @@ register("Alt+Z", async () => {
         await window.getCurrent().show();
     }
 
-    isWindowDisplayed.value = !isWindowDisplayed.value;
 });
 </script>
 

@@ -6,13 +6,14 @@
 
 
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, onUnmounted, reactive, ref, watchEffect } from "vue";
+import { computed, onBeforeMount, onMounted, watch, reactive, ref, watchEffect } from "vue";
 import { invoke } from "@tauri-apps/api/tauri";
 import { window } from "@tauri-apps/api";
 import { LogicalPosition, LogicalSize } from "@tauri-apps/api/window";
 
 const props = defineProps<{
     screenshotPath: string;
+    isActive: boolean;
 }>();
 
 const WINDOW_SIZE_X = 256;
@@ -45,13 +46,12 @@ onBeforeMount(async () => {
     ]);
 });
 
-onMounted(async () => {
-    move.value = true;
-    await moveLoop();
-});
-
-onUnmounted(() => {
-    move.value = false;
+watch(() => props.isActive, async () => {
+    if (props.isActive) {
+        await moveLoop();
+    }
+}, {
+    immediate: true
 });
 
 async function updateZoom(event: WheelEvent) {
@@ -95,7 +95,7 @@ async function updateSavedLocation() {
 async function moveLoop() {
     await windowMove();
 
-    if (move.value) {
+    if (props.isActive) {
         requestAnimationFrame(moveLoop);
     }
 }
