@@ -10,8 +10,7 @@ Milky Warp is an open-source tool that displays a magnifier when pressing a shor
 
 ## Preview
 
-<p style="text-align:center"><img src="https://user-images.githubusercontent.com/4563971/236351314-0082007d-e740-47b3-8505-7e79fec0b653.gif" alt="preview"></p>
-
+<p align="center"><img src="https://user-images.githubusercontent.com/4563971/236351314-0082007d-e740-47b3-8505-7e79fec0b653.gif" alt="preview"></p>
 
 ## Installation
 
