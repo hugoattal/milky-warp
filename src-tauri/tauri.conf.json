@@ -1,49 +1,69 @@
 {
-  "build": {
-    "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "pnpm build",
-    "devPath": "http://localhost:1420",
-    "distDir": "../dist",
-    "withGlobalTauri": false
-  },
-  "package": {
-    "productName": "milky-warp",
-    "version": "0.0.0"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      }
+    "build": {
+        "beforeDevCommand": "pnpm dev",
+        "beforeBuildCommand": "pnpm build",
+        "devPath": "http://localhost:1420",
+        "distDir": "../dist",
+        "withGlobalTauri": false
     },
-    "bundle": {
-      "active": true,
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
-      "identifier": "com.tauri.dev",
-      "targets": "all"
+    "package": {
+        "productName": "milky-warp",
+        "version": "0.0.0"
     },
-    "security": {
-      "csp": null
-    },
-    "updater": {
-      "active": false
-    },
-    "windows": [
-      {
-        "fullscreen": false,
-        "resizable": true,
-        "title": "milky-warp",
-        "width": 800,
-        "height": 600
-      }
-    ]
-  }
+    "tauri": {
+        "allowlist": {
+            "all": false,
+            "shell": {
+                "all": false,
+                "open": true
+            },
+            "window": {
+                "setPosition": true,
+                "setDecorations": true,
+                "setAlwaysOnTop": true,
+                "setIgnoreCursorEvents": true,
+                "setSize": true,
+                "show": true,
+                "hide": true
+            },
+            "protocol": {
+                "asset": true,
+                "assetScope": ["**"]
+            },
+            "globalShortcut": {
+                "all": true
+            }
+        },
+        "bundle": {
+            "active": true,
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ],
+            "identifier": "com.milky-warp.app",
+            "targets": "all"
+        },
+        "security": {
+            "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
+        },
+        "updater": {
+            "active": false
+        },
+        "windows": [
+            {
+                "fullscreen": false,
+                "resizable": true,
+                "title": "milky-warp",
+                "width": 256,
+                "height": 256
+            }
+        ],
+        "systemTray": {
+            "iconPath": "icons/icon.png",
+            "iconAsTemplate": true
+        }
+    }
 }
