@@ -1,5 +1,7 @@
 # 🌌 Milky Warp
 
+<p align="center"><i>Navigate the galaxy of pixels with Milky Warp!</i></p>
+
 Milky Warp is an open-source tool that displays a magnifier when pressing a shortcut. It's built with Tauri, Vite, Vue, and Typescript.
 
 ## Features
