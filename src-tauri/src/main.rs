@@ -19,10 +19,13 @@ fn get_mouse_location() -> String {
 }
 
 fn capture_screen() -> String {
-    let display = Screen::all().expect("Couldn't find primary display.");
-    let image = display[0].capture().expect("Couldn't capture display.");
-    let buffer = image.buffer();
+    let enigo = Enigo::new();
+    let cursor_location: (i32, i32) = enigo.mouse_location();
+    let screen_index = milky_warp::get_screen_index_from_cursor_pos(cursor_location);
 
+    let display = Screen::all().expect("Couldn't find primary display.");
+    let image = display[screen_index as usize].capture().expect("Couldn't capture display.");
+    let buffer = image.buffer();
 
     let temp_dir = std::env::temp_dir();
     let file_path = temp_dir.join("screenshot.png");

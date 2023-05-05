@@ -37,7 +37,8 @@ There is no release for Linux yet. You can build the application from source.
 1. Press the shortcut key (default: `Ctrl+Alt+A`) to activate the magnifier
 2. Use the mouse to move the magnifier around the screen
 3. Use the mouse scroll wheel to zoom in and out
-4. Press the shortcut key again to deactivate the magnifier
+4. Click to fix the magnifier position, and click again to release it
+5. Press the shortcut key again to deactivate the magnifier
 
 ## Configuration
 

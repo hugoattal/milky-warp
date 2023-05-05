@@ -14,7 +14,6 @@ const isWindowDisplayed = ref(false);
 const screenshotPath = ref("");
 
 onMounted(async () => {
-    await window.getCurrent().hide();
     screenshotPath.value = convertFileSrc((await invoke("get_screenshot_path", {})).replaceAll("\\", "/"));
     //await window.getCurrent().setIgnoreCursorEvents(true);
 });
@@ -38,6 +37,7 @@ register(config.shortcut, async () => {
 <style lang="scss">
 html, body {
     margin: 0;
+    background-color: transparent;
 
     #app {
         height: 100vh;

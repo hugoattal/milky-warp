@@ -19,8 +19,6 @@
             },
             "window": {
                 "setPosition": true,
-                "setDecorations": true,
-                "setAlwaysOnTop": true,
                 "setIgnoreCursorEvents": true,
                 "setSize": true,
                 "show": true,
@@ -55,10 +53,14 @@
         "windows": [
             {
                 "fullscreen": false,
-                "resizable": true,
-                "title": "milky-warp",
+                "resizable": false,
+                "title": "Milky Warp",
                 "width": 256,
-                "height": 256
+                "height": 256,
+                "decorations": false,
+                "alwaysOnTop": true,
+                "center": true,
+                "visible": false
             }
         ],
         "systemTray": {
