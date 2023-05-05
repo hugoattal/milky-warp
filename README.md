@@ -40,6 +40,14 @@ There is no release for Linux yet. You can build the application from source.
 4. Click to fix the magnifier position, and click again to release it
 5. Press the shortcut key again to deactivate the magnifier
 
+### Experimental
+
+You can also use the shortcut holder. Due to some limitation, it's not as smooth as I would like it to be.
+1. Press the shortcut key (default: `Ctrl+Alt+A`) to activate the magnifier
+2. Then you can hold and release the hold shortcut (default: `Ctrl+Shit+A`)
+3. While the magnifier is hidden using the hold shortcut, you can't click
+4. To close this mode, close the magnifier with the normal shortcut (default: `Ctrl+Alt+A`)
+
 ## Configuration
 
 You can customize the shortcut key by editing the `src/config.ts` file.
