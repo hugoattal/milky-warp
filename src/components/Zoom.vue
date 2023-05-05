@@ -90,7 +90,7 @@ async function windowMove() {
 }
 
 async function updateSavedLocation() {
-    const alpha = forceInstantMove ? 1 : 0.2;
+    const alpha = forceInstantMove ? 1 : 0.3;
     forceInstantMove = false;
 
     targetZoomLevel.value = lerp(targetZoomLevel.value, zoomLevel.value, alpha);
@@ -118,7 +118,7 @@ async function toggleMove() {
 
 <style scoped lang="scss">
 .wrapper {
-    //border-radius: 16px;
+    border-radius: 16px;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -129,11 +129,12 @@ async function toggleMove() {
         content:"";
         position: absolute;
         inset: 0;
-        //border-radius: 16px;
-        //box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+        border-radius: 16px;
+        box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
     }
 
     .screen {
+        image-rendering: pixelated;
         opacity: 1;
         width: 100%;
         height: 100%;

@@ -57,6 +57,7 @@
                 "title": "Milky Warp",
                 "width": 256,
                 "height": 256,
+                "transparent": true,
                 "decorations": false,
                 "alwaysOnTop": true,
                 "center": true,
