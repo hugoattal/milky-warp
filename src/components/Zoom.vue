@@ -20,22 +20,26 @@ const WINDOW_SIZE_X = 256;
 const WINDOW_SIZE_Y = 128;
 
 const move = ref(true);
-
-const cursor = reactive({ x: 0, y: 0 });
+const lockOnScreen = ref(false);
 
 const zoomLevel = ref(0);
 const targetZoomLevel = ref(0);
 const scale = computed(() => Math.pow(1.5, targetZoomLevel.value));
 
+const cursor = { x: 0, y: 0 };
 const savedLocation = reactive({ x: 0, y: 0 });
-const targetLocation = reactive({ x: 0, y: 0 });
+const targetLocation = { x: 0, y: 0 };
+const monitor = {
+    size: { x: 0, y: 0 },
+    position: { x: 0, y: 0 }
+}
 
 let forceInstantMove = false;
 
 const screenStyle = computed(() => {
     return {
         backgroundImage: `url(${props.screenshotPath})`,
-        backgroundPosition: `${-savedLocation.x}px ${-savedLocation.y}px`
+        backgroundPosition: `${-savedLocation.x + monitor.position.x}px ${-savedLocation.y + monitor.position.y}px`
     };
 });
 
@@ -47,11 +51,27 @@ watch(() => props.isActive, async () => {
     if (props.isActive) {
         forceInstantMove = true;
         move.value = true;
+        lockOnScreen.value = false;
         await moveLoop();
+        await updateMonitor();
+        lockOnScreen.value = true;
+        console.log(monitor.position);
     }
 }, {
     immediate: true
 });
+
+async function updateMonitor() {
+    const currentMonitor = await window.currentMonitor();
+    if (!currentMonitor) {
+        return;
+    }
+    const position = currentMonitor.position;
+    const size = currentMonitor.size;
+
+    monitor.position = { x: position.x, y: position.y };
+    monitor.size = { x: size.width, y: size.height };
+}
 
 async function updateZoom(event: WheelEvent) {
     zoomLevel.value -= event.deltaY / 100;
@@ -77,16 +97,32 @@ async function windowMove() {
     targetLocation.x = cursor.x - (scale.value * WINDOW_SIZE_X) / 2;
     targetLocation.y = cursor.y - (scale.value * WINDOW_SIZE_Y) / 2;
 
-    const windowLocation = new LogicalPosition(targetLocation.x, targetLocation.y);
-
-    const moveWindow = async() => {
-        await window.appWindow.setPosition(windowLocation)
-    }
+    const moveWindow = async () => {
+        await window.appWindow.setPosition(getWindowPosition());
+    };
 
     await Promise.all([
         updateSavedLocation(),
         moveWindow()
     ]);
+}
+
+function getWindowPosition() {
+    if (!lockOnScreen.value) {
+        return new LogicalPosition(
+            targetLocation.x,
+            targetLocation.y
+        );
+    }
+
+    return new LogicalPosition(
+        clamp(targetLocation.x, monitor.position.x, monitor.position.x + monitor.size.x - scale.value * WINDOW_SIZE_X),
+        clamp(targetLocation.y, monitor.position.y, monitor.position.y + monitor.size.y - scale.value * WINDOW_SIZE_Y)
+    );
+
+    function clamp(value: number, min: number, max: number) {
+        return Math.min(Math.max(value, min), max);
+    }
 }
 
 async function updateSavedLocation() {
@@ -126,11 +162,11 @@ async function toggleMove() {
     position: relative;
 
     &::after {
-        content:"";
+        content: "";
         position: absolute;
         inset: 0;
         border-radius: 16px;
-        box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
     }
 
     .screen {
@@ -139,6 +175,7 @@ async function toggleMove() {
         width: 100%;
         height: 100%;
         transform: scale(v-bind(scale));
+        background-repeat: no-repeat;
     }
 }
 </style>
