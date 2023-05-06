@@ -55,7 +55,6 @@ watch(() => props.isActive, async () => {
         await moveLoop();
         await updateMonitor();
         lockOnScreen.value = true;
-        console.log(monitor.position);
     }
 }, {
     immediate: true
