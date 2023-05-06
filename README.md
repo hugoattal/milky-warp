@@ -1,3 +1,7 @@
+
+<img src="https://user-images.githubusercontent.com/4563971/236621147-67ce1cb8-64f2-4960-b28e-fa49e0f04444.png" alt="Illustration" />
+
+
 # 🌌 Milky Warp
 
 <p align="center"><i>Navigate the galaxy of pixels with Milky Warp!</i></p>
@@ -55,6 +59,10 @@ You can customize the shortcut key by editing the `src/config.ts` file.
 ## Contributing
 
 Contributions are welcome!
+
+## Sponsors
+
+<p align="center"><a href="https://roller-coaster.app" target="_blank"><img src="https://user-images.githubusercontent.com/4563971/236619928-46934468-1ba1-4529-b32a-203d6725b62d.png" alt="Roller Coaster"/></a></p>
 
 ## License
 
