@@ -44,7 +44,7 @@ There is no release for Linux yet. You can build the application from source.
 
 You can also use the shortcut holder. Due to some limitation, it's not as smooth as I would like it to be.
 1. Press the shortcut key (default: `Ctrl+Alt+A`) to activate the magnifier
-2. Then you can hold and release the hold shortcut (default: `Ctrl+Shit+A`)
+2. Then you can hold and release the hold shortcut (default: `Ctrl+Shift+A`)
 3. While the magnifier is hidden using the hold shortcut, you can't click
 4. To close this mode, close the magnifier with the normal shortcut (default: `Ctrl+Alt+A`)
 
