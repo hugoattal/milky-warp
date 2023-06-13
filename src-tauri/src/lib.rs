@@ -1,9 +1,6 @@
 #[cfg(target_os = "windows")]
 extern crate winapi;
 
-#[cfg(target_os = "linux")]
-extern crate x11;
-
 #[cfg(target_os = "windows")]
 pub fn get_screen_index_from_cursor_pos(cursor_pos: (i32, i32)) -> u32 {
     use winapi::shared::windef::{POINT, HMONITOR, HDC, LPRECT};

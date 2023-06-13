@@ -6,10 +6,10 @@
 
 
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, watch, reactive, ref, watchEffect, nextTick } from "vue";
-import { invoke } from "@tauri-apps/api/tauri";
-import { window } from "@tauri-apps/api";
-import { LogicalPosition, LogicalSize } from "@tauri-apps/api/window";
+import {computed, onBeforeMount, watch, reactive, ref} from "vue";
+import {invoke} from "@tauri-apps/api/tauri";
+import {window} from "@tauri-apps/api";
+import {LogicalPosition, LogicalSize} from "@tauri-apps/api/window";
 
 const props = defineProps<{
     screenshotPath: string;
@@ -26,12 +26,13 @@ const zoomLevel = ref(0);
 const targetZoomLevel = ref(0);
 const scale = computed(() => Math.pow(1.5, targetZoomLevel.value));
 
-const cursor = { x: 0, y: 0 };
-const savedLocation = reactive({ x: 0, y: 0 });
-const targetLocation = { x: 0, y: 0 };
+const cursor = {x: 0, y: 0};
+const savedLocation = reactive({x: 0, y: 0});
+const targetLocation = {x: 0, y: 0};
 const monitor = {
-    size: { x: 0, y: 0 },
-    position: { x: 0, y: 0 }
+    size: {x: 0, y: 0},
+    position: {x: 0, y: 0},
+    scale: 1
 }
 
 let forceInstantMove = false;
@@ -39,7 +40,8 @@ let forceInstantMove = false;
 const screenStyle = computed(() => {
     return {
         backgroundImage: `url(${props.screenshotPath})`,
-        backgroundPosition: `${-savedLocation.x + monitor.position.x}px ${-savedLocation.y + monitor.position.y}px`
+        backgroundPosition: `${-savedLocation.x + monitor.position.x / monitor.scale}px ${-savedLocation.y + monitor.position.y / monitor.scale}px`,
+        backgroundSize: `${monitor.size.x / monitor.scale}px ${monitor.size.y / monitor.scale}px`,
     };
 });
 
@@ -67,9 +69,11 @@ async function updateMonitor() {
     }
     const position = currentMonitor.position;
     const size = currentMonitor.size;
+    const scaleFactor = currentMonitor.scaleFactor
 
-    monitor.position = { x: position.x, y: position.y };
-    monitor.size = { x: size.width, y: size.height };
+    monitor.position = {x: position.x, y: position.y};
+    monitor.size = {x: size.width, y: size.height};
+    monitor.scale = scaleFactor;
 }
 
 async function updateZoom(event: WheelEvent) {
@@ -89,7 +93,7 @@ async function updateWindowSize() {
 
 async function windowMove() {
     const mouseLocation = await invoke("get_mouse_location", {});
-    const location = mouseLocation.split(";").map(v => parseInt(v));
+    const location = mouseLocation.split(";").map(v => parseInt(v) / monitor.scale);
     cursor.x = location[0];
     cursor.y = location[1];
 
@@ -115,8 +119,8 @@ function getWindowPosition() {
     }
 
     return new LogicalPosition(
-        clamp(targetLocation.x, monitor.position.x, monitor.position.x + monitor.size.x - scale.value * WINDOW_SIZE_X),
-        clamp(targetLocation.y, monitor.position.y, monitor.position.y + monitor.size.y - scale.value * WINDOW_SIZE_Y)
+        clamp(targetLocation.x, monitor.position.x, monitor.position.x + monitor.size.x / monitor.scale - scale.value * WINDOW_SIZE_X),
+        clamp(targetLocation.y, monitor.position.y, monitor.position.y + monitor.size.y / monitor.scale - scale.value * WINDOW_SIZE_Y)
     );
 
     function clamp(value: number, min: number, max: number) {
